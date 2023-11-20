@@ -62,13 +62,19 @@ app.get('/api/books', async(req, res)=>{
   res.json(books);
 })
 
-app.get('/api/book/:identifier',async (req,res)=>{
+app.get('/api/book/:identifier', async (req,res)=>{
   console.log(req.params.identifier);
 
-  let book = await bookModel.findById(req.params.identifier);
-  res.send(book);
+   let book = await bookModel.findById(req.params.identifier);
+   res.send(book);
 })
 
+app.put('/api/book/:identifier', async(req, res) => {
+  console.log("Edit: " + req.params.identifier) ;
+
+  let book = await bookModel.findByIdAndUpdate(req.params.identifier, req.body, {new:true} );
+  res.send(book);
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
